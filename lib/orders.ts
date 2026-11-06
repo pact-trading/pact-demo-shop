@@ -4,9 +4,12 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 
 /** The store's own order book: a JSON file, enough for a demo. Use your database in production. */
-export interface OrderLine { productId: string; name: string; quantity: number; unitPrice: string }
+export interface OrderLine { productId: string; name: string; image?: string; quantity: number; unitPrice: string }
 export interface StoreOrder {
   id: string;
+  /** What the customer sees: KC-1001, KC-1002… */
+  number: string;
+  shipTo: string;
   email: string;
   name: string;
   lines: OrderLine[];
@@ -26,9 +29,9 @@ export const listOrders = () => read().orders.sort((a, b) => b.createdAt.localeC
 export const getOrder = (id: string) => read().orders.find(o => o.id === id) ?? null;
 export const webhookLog = () => read().webhooks.slice(0, 50);
 
-export function createOrder(input: Omit<StoreOrder, 'id' | 'status' | 'createdAt' | 'pact'>): StoreOrder {
+export function createOrder(input: Omit<StoreOrder, 'id' | 'number' | 'status' | 'createdAt' | 'pact'>): StoreOrder {
   const book = read();
-  const order: StoreOrder = { ...input, id: `ord_${randomUUID().slice(0, 8)}`, status: 'awaiting_payment', createdAt: new Date().toISOString(), pact: { paymentId: null, payUrl: null, txHash: null, paidEventId: null, paidAt: null } };
+  const order: StoreOrder = { ...input, id: `ord_${randomUUID().slice(0, 8)}`, number: `KC-${1001 + book.orders.length}`, status: 'awaiting_payment', createdAt: new Date().toISOString(), pact: { paymentId: null, payUrl: null, txHash: null, paidEventId: null, paidAt: null } };
   book.orders.push(order);
   write(book);
   return order;

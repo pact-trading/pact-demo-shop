@@ -1,6 +1,7 @@
-# Studio Supply: a store that takes USDT through Pact
+# Kiln & Co.: a ceramics store that takes USDT through Pact
 
-A small Next.js store (frontend and backend) that sells several products in one cart and gets paid in
+A Next.js store (frontend and backend) for a small ceramics studio: catalog, product pages, a cart
+drawer and a checkout that sells several products in one payment and gets paid in
 USDT on Whitechain Sepolia through [Pact](https://pay.pactagent.app). It is a separate app that only
 uses Pact's SDK and API, the way a real merchant would.
 
@@ -48,7 +49,10 @@ export const POST = Webhooks({
 2. `cp .env.example .env.local` and fill in `PACT_SECRET_KEY`, `PACT_WEBHOOK_SECRET` and `PACT_API_URL`.
 3. `pnpm install && pnpm build && pnpm start` → http://localhost:3220
 
-Pages: `/` shop, `/cart`, `/orders/:id` (waits for the webhook), `/admin` (orders and every webhook received).
+Pages: `/` shop, `/products/:id`, cart drawer, `/cart` (checkout: contact, shipping, payment), `/orders/:id`
+(thank-you page that waits for the webhook), `/admin` (orders, revenue and every webhook received).
+
+Product photos are CC0 (rawpixel, Wikimedia Commons, StockSnap, WordPress Photo Directory).
 
 ## Notes
 

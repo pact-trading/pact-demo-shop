@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { CartButton } from './cart';
 import { KilnLogo } from './logo';
@@ -6,7 +7,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-30">
       <div className="bg-ink px-4 py-2 text-center text-[13px] text-cream">
-        Free shipping on orders over $40 · Pay in USDT with just your email, no wallet needed
+        Free shipping on orders over $40. Pay in USDT with just your email.
       </div>
       <div className="border-b border-line bg-cream/90 backdrop-blur">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
@@ -42,7 +43,7 @@ export function SiteFooter() {
           <p className="mt-3 text-sm text-ink-soft">Checkout by Pact. Pay in USDT on Whitechain with your email: no wallet, no gas.</p>
         </div>
       </div>
-      <div className="border-t border-line py-5 text-center text-xs text-ink-soft">© 2026 Kiln &amp; Co. · Testnet demo store, no real goods are shipped.</div>
+      <div className="border-t border-line py-5 text-center text-xs text-ink-soft">© 2026 Kiln &amp; Co. Testnet demo store, no real goods are shipped.</div>
     </footer>
   );
 }
@@ -59,7 +60,7 @@ function FooterColumn({ title, links }: { title: string; links: string[] }) {
 export function Stars({ rating, reviews }: { rating: number; reviews: number }) {
   return (
     <span className="flex items-center gap-1.5 text-sm text-ink-soft">
-      <span className="text-clay" aria-hidden>{'★★★★★'.slice(0, Math.round(rating))}<span className="text-line">{'★★★★★'.slice(Math.round(rating))}</span></span>
+      <span className="flex" aria-hidden>{[0, 1, 2, 3, 4].map(i => <Star key={i} className={`size-3.5 ${i < Math.round(rating) ? 'fill-clay text-clay' : 'fill-line text-line'}`} />)}</span>
       {rating.toFixed(1)} ({reviews})
     </span>
   );

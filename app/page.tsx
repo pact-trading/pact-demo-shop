@@ -1,3 +1,4 @@
+import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { AddToCart } from '@/components/cart';
 import { Stars } from '@/components/chrome';
@@ -18,7 +19,7 @@ export default function Home() {
             <Link href="#story" className="btn btn-ghost">Visit the studio</Link>
           </div>
           <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 text-sm">
-            <div><dt className="font-display text-2xl text-ink">4.9★</dt><dd className="text-ink-soft">2,300 reviews</dd></div>
+            <div><dt className="font-display text-2xl text-ink"><span className="inline-flex items-center gap-1">4.9 <Star className="size-5 fill-clay text-clay" /></span></dt><dd className="text-ink-soft">2,300 reviews</dd></div>
             <div><dt className="font-display text-2xl text-ink">2 days</dt><dd className="text-ink-soft">to dispatch</dd></div>
             <div><dt className="font-display text-2xl text-ink">USDT</dt><dd className="text-ink-soft">pay with email</dd></div>
           </dl>

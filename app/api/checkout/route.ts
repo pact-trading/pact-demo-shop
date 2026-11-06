@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   // ── Pact: one call creates the hosted checkout for the whole cart ──
   const checkout = await pact.orders.create({
     customer: { kind: 'new', name: order.name, email },
-    lines: lines.map(l => ({ description: l.name, quantity: l.quantity, unitMinor: toMinor(l.unitPrice).toString() })),
+    lines: lines.map(l => ({ description: l.name, quantity: l.quantity, unitMinor: toMinor(l.unitPrice).toString(), ...(l.image ? { imageUrl: `${process.env.APP_URL}${l.image}` } : {}) })),
     returnUrl: `${process.env.APP_URL}/orders/${order.id}`,
     metadata: { store_order_id: order.id, order_number: order.number },
   });

@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { AddToCart } from '@/components/cart';
@@ -24,12 +25,12 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
           <p className="mt-5 text-3xl font-semibold">${product.price} <span className="text-base font-normal text-ink-soft">USDT</span></p>
           <p className="mt-5 text-lg text-ink-soft">{product.description}</p>
           <ul className="mt-5 space-y-2">
-            {product.details.map(d => <li key={d} className="flex gap-2 text-sm"><span className="text-moss">✓</span>{d}</li>)}
+            {product.details.map(d => <li key={d} className="flex gap-2 text-sm"><Check className="mt-0.5 size-4 shrink-0 text-moss" />{d}</li>)}
           </ul>
           <div className="mt-8"><AddToCart id={product.id} full /></div>
           <div className="mt-6 grid gap-3 rounded-2xl border border-line bg-white p-5 text-sm">
             <p><strong>Pay in USDT, no wallet needed.</strong> At checkout you sign in with your email and confirm once. No gas, no seed phrase.</p>
-            <p className="text-ink-soft">Ships in 2 days · Free over $40 · 30-day returns</p>
+            <p className="text-ink-soft">Ships in 2 days. Free over $40. 30-day returns.</p>
           </div>
         </div>
       </div>

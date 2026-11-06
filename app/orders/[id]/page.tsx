@@ -1,5 +1,7 @@
 'use client';
 
+import { Check, Clock, ExternalLink, Package } from 'lucide-react';
+
 import Link from 'next/link';
 import { use, useEffect, useState } from 'react';
 
@@ -36,7 +38,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
   return (
     <div className="mx-auto max-w-5xl px-5 pt-10">
       <div className="flex items-start gap-4">
-        <span className={`grid size-12 shrink-0 place-items-center rounded-full text-xl ${paid ? 'bg-moss text-white' : 'bg-sand text-ink-soft'}`}>{paid ? '✓' : '…'}</span>
+        <span className={`grid size-12 shrink-0 place-items-center rounded-full text-xl ${paid ? 'bg-moss text-white' : 'bg-sand text-ink-soft'}`}>{paid ? <Check className="size-6" /> : <Clock className="size-6" />}</span>
         <div>
           <p className="text-sm text-ink-soft">Order {order.number}</p>
           <h1 className="font-display text-4xl tracking-tight">{paid ? `Thank you, ${order.name.split(' ')[0]}!` : 'Confirming your payment…'}</h1>
@@ -59,7 +61,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
           <ul className="mt-4 divide-y divide-line">
             {order.lines.map(l => (
               <li key={l.productId} className="flex items-center gap-4 py-3">
-                {l.image ? <img src={l.image} alt="" className="size-14 rounded-xl object-cover" /> : <span className="grid size-14 place-items-center rounded-xl bg-sand text-xl">📦</span>}
+                {l.image ? <img src={l.image} alt="" className="size-14 rounded-xl object-cover" /> : <span className="grid size-14 place-items-center rounded-xl bg-sand text-ink-soft"><Package className="size-6" /></span>}
                 <p className="flex-1 text-sm font-medium">{l.name} <span className="text-ink-soft">× {l.quantity}</span></p>
                 <p className="text-sm">${(Number(l.unitPrice) * l.quantity).toFixed(2)}</p>
               </li>
@@ -72,7 +74,7 @@ export default function OrderPage({ params }: { params: Promise<{ id: string }> 
             <h2 className="font-semibold">Payment</h2>
             <p className="mt-3 flex items-center gap-2"><span className="grid size-6 place-items-center rounded-full bg-[#26A17B] text-xs font-bold text-white">₮</span> USDT on Whitechain, via Pact</p>
             {paid && order.pact.txHash ? (
-              <a className="mt-3 inline-block font-medium text-clay underline" href={`${explorer}/tx/${order.pact.txHash}`} target="_blank" rel="noreferrer">View the payment on Whitechain ↗</a>
+              <a className="mt-3 inline-block font-medium text-clay underline" href={`${explorer}/tx/${order.pact.txHash}`} target="_blank" rel="noreferrer">View the payment on Whitechain <ExternalLink className="inline size-3.5 align-[-2px]" /></a>
             ) : <p className="mt-3 text-ink-soft">Waiting for Pact&apos;s confirmation…</p>}
             <p className="mt-3 text-xs text-ink-soft">Confirmed by a signed webhook from Pact, not by this page.</p>
           </div>

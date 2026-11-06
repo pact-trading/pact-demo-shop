@@ -56,7 +56,6 @@ Product photos are CC0 (rawpixel, Wikimedia Commons, StockSnap, WordPress Photo 
 
 ## Notes
 
-- Until `@pactagent/*` is published on npm, the SDK is installed from the packed files in `vendor/`
   (see `pnpm-workspace.yaml`). Switching to npm is a one-line change per package.
 - Orders are kept in `data/store.json` for the demo. Use your database in production.
 - Webhook retries reuse the event id; the handler ignores an event it has already applied.

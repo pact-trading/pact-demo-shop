@@ -1,12 +1,31 @@
-/** Kiln & Co. mark: a kiln arch with a flame inside, and the wordmark. */
+'use client';
+
+import { useEffect, useState } from 'react';
+
+/** Kiln & Co. generated mark. */
 export function KilnMark({ className = 'size-8' }: { className?: string }) {
+  const [src, setSrc] = useState('/brand/kiln-co.png');
+  useEffect(() => {
+    let active = true;
+    const load = async () => {
+      try {
+        const response = await fetch('/api/brand', { cache: 'no-store' });
+        if (!response.ok) return;
+        const brand = (await response.json()) as { logoUrl: string | null };
+        if (active && brand.logoUrl) {
+          setSrc(brand.logoUrl);
+          document.querySelector('link[rel="icon"]')?.setAttribute('href', brand.logoUrl);
+        }
+      } catch { /* Keep the bundled logo while the API is unavailable. */ }
+    };
+    void load();
+    const refresh = () => { if (document.visibilityState === 'visible') void load(); };
+    document.addEventListener('visibilitychange', refresh);
+    return () => { active = false; document.removeEventListener('visibilitychange', refresh); };
+  }, []);
   return (
-    <svg viewBox="0 0 40 40" className={className} aria-hidden>
-      <rect width="40" height="40" rx="10" fill="#B4532A" />
-      <path d="M10 31V19a10 10 0 0 1 20 0v12" fill="none" stroke="#FBF3EA" strokeWidth="3" strokeLinecap="round" />
-      <path d="M8 31h24" stroke="#FBF3EA" strokeWidth="3" strokeLinecap="round" />
-      <path d="M20 28c-3 0-4.5-2-4.5-4.2 0-2.6 2.3-3.8 3-6.3 1.6 1.2 2.2 2.6 2.1 3.8.9-.5 1.4-1.3 1.6-2.3 1.4 1.3 2.3 2.8 2.3 4.8 0 2.4-1.7 4.2-4.5 4.2Z" fill="#F4C27A" />
-    </svg>
+    // eslint-disable-next-line @next/next/no-img-element
+    <img src={src} alt="" width={32} height={32} className={`${className} rounded-lg object-cover`} referrerPolicy="no-referrer" />
   );
 }
 

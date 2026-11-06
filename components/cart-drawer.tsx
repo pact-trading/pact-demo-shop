@@ -1,5 +1,7 @@
 'use client';
 
+import { X } from 'lucide-react';
+
 import Link from 'next/link';
 import { useCart } from './cart';
 import { CATALOG, fromMinor, toMinor } from '@/lib/catalog';
@@ -18,7 +20,7 @@ export function CartDrawer() {
       <aside className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col bg-cream shadow-2xl transition-transform duration-300 ${cart.open ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex items-center justify-between border-b border-line px-6 py-5">
           <p className="font-display text-xl">Your cart ({cart.count})</p>
-          <button onClick={() => cart.setOpen(false)} className="rounded-full p-2 hover:bg-sand" aria-label="Close cart">✕</button>
+          <button onClick={() => cart.setOpen(false)} className="rounded-full p-2 hover:bg-sand" aria-label="Close cart"><X className="size-5" /></button>
         </div>
         {lines.length ? (
           <>

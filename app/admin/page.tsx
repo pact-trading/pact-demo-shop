@@ -23,11 +23,11 @@ export default function Admin() {
           <tbody className="divide-y divide-line">
             {orders.map(o => (
               <tr key={o.id}>
-                <td className="px-4 py-3 font-medium"><a href={`/orders/${o.id}`} className="hover:underline">{o.number}</a><div className="text-xs text-ink-soft">{new Date(o.createdAt).toLocaleString()}</div></td>
+                <td className="px-4 py-3 font-medium"><a href={`/orders/${o.id}`} className="hover:underline">{o.number}</a><div className="whitespace-nowrap text-xs text-ink-soft">{new Date(o.createdAt).toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</div></td>
                 <td className="px-4 py-3">{o.name}<div className="text-xs text-ink-soft">{o.email}</div></td>
                 <td className="px-4 py-3">{o.lines.filter(l => l.productId !== 'shipping').map(l => `${l.name} ×${l.quantity}`).join(', ')}</td>
-                <td className="px-4 py-3 font-medium">${o.total}</td>
-                <td className="px-4 py-3"><span className={`rounded-full px-2.5 py-1 text-xs font-semibold ${badge[o.status]}`}>{o.status.replace('_', ' ')}</span></td>
+                <td className="whitespace-nowrap px-4 py-3 font-medium tabular-nums">${o.total}</td>
+                <td className="px-4 py-3"><span className={`inline-block whitespace-nowrap rounded-full px-2.5 py-1 text-xs font-semibold capitalize ${badge[o.status]}`}>{o.status === 'awaiting_payment' ? 'Unpaid' : o.status.replace('_', ' ')}</span></td>
                 <td className="px-4 py-3 font-mono text-xs">{o.pact.txHash ? <a className="text-clay underline" href={`${explorer}/tx/${o.pact.txHash}`} target="_blank" rel="noreferrer">{o.pact.txHash.slice(0, 10)}…</a> : '-'}</td>
               </tr>
             ))}

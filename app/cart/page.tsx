@@ -1,5 +1,7 @@
 'use client';
 
+import { Lock } from 'lucide-react';
+
 import Link from 'next/link';
 import { useState } from 'react';
 import { useCart } from '@/components/cart';
@@ -9,7 +11,7 @@ const FREE_SHIPPING = 40_000_000n, SHIPPING = 5_000_000n;
 
 export default function CheckoutPage() {
   const cart = useCart();
-  const [form, setForm] = useState({ email: '', name: '', address: '', city: '', country: 'Vietnam' });
+  const [form, setForm] = useState({ email: '', name: '', address: '', city: '', country: '' });
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const lines = cart.items.flatMap(i => {
@@ -62,9 +64,9 @@ export default function CheckoutPage() {
             <h2 className="text-lg font-semibold">Shipping</h2>
             <div className="mt-4 grid gap-4 sm:grid-cols-2">
               <div className="sm:col-span-2"><label className="label" htmlFor="name">Full name</label><input id="name" required className="input" placeholder="Ana Silva" {...field('name')} /></div>
-              <div className="sm:col-span-2"><label className="label" htmlFor="address">Address</label><input id="address" className="input" placeholder="12 Nguyen Hue" {...field('address')} /></div>
-              <div><label className="label" htmlFor="city">City</label><input id="city" className="input" placeholder="Ho Chi Minh City" {...field('city')} /></div>
-              <div><label className="label" htmlFor="country">Country</label><input id="country" className="input" {...field('country')} /></div>
+              <div className="sm:col-span-2"><label className="label" htmlFor="address">Address</label><input id="address" className="input" placeholder="12 Market Street" {...field('address')} /></div>
+              <div><label className="label" htmlFor="city">City</label><input id="city" className="input" placeholder="Lisbon" {...field('city')} /></div>
+              <div><label className="label" htmlFor="country">Country</label><input id="country" className="input" placeholder="Portugal" {...field('country')} /></div>
             </div>
           </section>
           <section>
@@ -103,7 +105,7 @@ export default function CheckoutPage() {
             {busy ? 'Opening secure checkout…' : `Pay $${fromMinor(subtotal + shipping)} with Pact`}
           </button>
           {error && <p className="mt-3 text-sm text-red-700">{error}</p>}
-          <p className="mt-4 text-center text-xs text-ink-soft">🔒 You will finish on Pact&apos;s secure page, then come back here.</p>
+          <p className="mt-4 text-center text-xs text-ink-soft"><Lock className="mr-1 inline size-3.5 align-[-2px]" />You will finish on Pact&apos;s secure page, then come back here.</p>
         </aside>
       </form>
     </div>
